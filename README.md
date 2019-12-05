@@ -4,6 +4,23 @@ A coursework to complete the architecture and infrastructure final project. This
 # How to Use
 There are 5 API in total,
 
+## Godep
+Use `https://github.com/golang/dep` instead of `https://github.com/tools/godep`
+After install dep, run `dep ensure -vendor-only` to install all dependency
+
+## How To Run
+If you don't have .env file, run `cp env-example .env`
+
+Go to `tkai_circles_account/docker_workspace` directory
+
+Run ``docker-compose build``
+
+Run `docker-compose up -d db`
+
+Wait until db ready `(starting db ... done)`
+
+Run `docker-compose up`
+
 ## Register User
 ```http request
 POST /api/user/new
