@@ -1,0 +1,42 @@
+version: '3'
+
+services: 
+    account:
+        container_name: tkai_account
+        build: .
+        tty: true
+        ports: 
+            - "8000:8000"
+        networks: 
+            - tkai
+        depends_on: 
+            - db
+        links: 
+            - db
+        volumes: 
+            - "${APP_PATH}:/go/src/github.com/realr3fo/tkai_circles_account"
+            - "${APP_PATH}/.realize.yaml:/go/.realize.yaml"
+        environment: 
+            - db_name=${db_name}
+            - db_pass=${db_pass}
+            - db_user=${db_user}
+            - db_host=${db_host}
+            - db_port=${db_port}
+            - token_password=token_password
+        command: /bin/sh -c "realize start --run"
+    
+    db:
+        container_name: db
+        image: postgres:latest
+        restart: always
+        ports: 
+            - "5432:5432"
+        networks: 
+            - tkai
+        environment: 
+            - POSTGRES_USER=${db_user}
+            - POSTGRES_PASSWORD=${db_pass}
+            - POSTGRES_DB=${db_name}
+
+networks:
+    tkai:
