@@ -5,8 +5,8 @@ import (
 	"github.com/gorilla/mux"
 	"net/http"
 	"os"
-	"tkai_circles_account/app"
-	"tkai_circles_account/controllers"
+	"github.com/realr3fo/tkai_circles_account/app"
+	"github.com/realr3fo/tkai_circles_account/controllers"
 )
 
 func main() {
