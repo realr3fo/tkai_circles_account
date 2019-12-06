@@ -7,6 +7,10 @@ import (
 	u "github.com/realr3fo/tkai_circles_account/utils"
 )
 
+var HelloWorld = func(w http.ResponseWriter, r *http.Request) {
+	u.Respond(w, u.Message(true, "Hello World!"))
+}
+
 var CreateAccount = func(w http.ResponseWriter, r *http.Request) {
 
 	account := &models.Account{}
