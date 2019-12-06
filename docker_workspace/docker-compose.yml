@@ -1,3 +1,4 @@
+# Docker compose with small index. Use this to run app on your local
 version: '3'
 
 services: 
@@ -16,6 +17,78 @@ services:
         volumes: 
             - "${APP_PATH}:/go/src/github.com/realr3fo/tkai_circles_account"
             - "${APP_PATH}/.realize.yaml:/go/.realize.yaml"
+        environment: 
+            - db_name=${db_name}
+            - db_pass=${db_pass}
+            - db_user=${db_user}
+            - db_host=${db_host}
+            - db_port=${db_port}
+            - token_password=token_password
+        command: /bin/sh -c "realize start --run"
+
+    circle:
+        container_name: tkai_circle
+        build: .
+        tty: true
+        ports: 
+            - "8001:8001"
+        networks: 
+            - tkai
+        depends_on: 
+            - db
+        links: 
+            - db
+        volumes: 
+            - "${CIRCLE_PATH}:/go/src/github.com/realr3fo/tkai_circles_circle"
+            - "${CIRCLE_PATH}/.realize.yaml:/go/.realize.yaml"
+        environment: 
+            - db_name=${db_name}
+            - db_pass=${db_pass}
+            - db_user=${db_user}
+            - db_host=${db_host}
+            - db_port=${db_port}
+            - token_password=token_password
+        command: /bin/sh -c "realize start --run"
+    
+    ball:
+        container_name: tkai_ball
+        build: .
+        tty: true
+        ports: 
+            - "8002:8002"
+        networks: 
+            - tkai
+        depends_on: 
+            - db
+        links: 
+            - db
+        volumes: 
+            - "${BALL_PATH}:/go/src/github.com/realr3fo/tkai_circles_ball"
+            - "${BALL_PATH}/.realize.yaml:/go/.realize.yaml"
+        environment: 
+            - db_name=${db_name}
+            - db_pass=${db_pass}
+            - db_user=${db_user}
+            - db_host=${db_host}
+            - db_port=${db_port}
+            - token_password=token_password
+        command: /bin/sh -c "realize start --run"
+    
+    tube:
+        container_name: tkai_tube
+        build: .
+        tty: true
+        ports: 
+            - "8003:8003"
+        networks: 
+            - tkai
+        depends_on: 
+            - db
+        links: 
+            - db
+        volumes: 
+            - "${TUBE_PATH}:/go/src/github.com/realr3fo/tkai_circles_tube"
+            - "${TUBE_PATH}/.realize.yaml:/go/.realize.yaml"
         environment: 
             - db_name=${db_name}
             - db_pass=${db_pass}
